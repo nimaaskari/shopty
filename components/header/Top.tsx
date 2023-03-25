@@ -48,19 +48,20 @@
 import styles from "./styles.module.scss";
 import { MdSecurity } from "react-icons/md";
 import { BsSuitHeart } from "react-icons/bs";
+import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import Link from "next/link";
+import { useState } from "react";
+import UserMenu from "./UserMenu";
 export default function Top({}) {
+  const [visible, setVisible] = useState(false);
+  let session = true;
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>
         <div></div>
         <ul className={styles.top__list}>
           <li className={styles.li}>
-            <img
-              src="https://static.vecteezy.com/system/resources/previews/011/571/454/non_2x/circle-flag-of-iran-free-png.png"
-              alt="country flag"
-            />
-            <span> / USD</span>
+            <span>Iran / USD</span>
           </li>
           <li className={styles.li}>
             <MdSecurity />
@@ -78,7 +79,29 @@ export default function Top({}) {
               <span>Whishlist</span>
             </Link>
           </li>
-          <li className={styles.li}></li>
+          <li
+            className={styles.li}
+            onMouseOver={() => setVisible(true)}
+            onMouseLeave={() => setVisible(false)}
+          >
+            {session ? (
+              <li className={styles.li}>
+                <div className={styles.flex}>
+                  <span>Nima</span>
+                  <RiArrowDropDownFill />
+                </div>
+              </li>
+            ) : (
+              <li className={styles.li}>
+                <div className={styles.flex}>
+                  <RiAccountPinCircleLine />
+                  <span>Account</span>
+                  <RiArrowDropDownFill />
+                </div>
+              </li>
+            )}
+            {visible && <UserMenu />}
+          </li>
         </ul>
       </div>
     </div>

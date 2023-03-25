@@ -3,6 +3,7 @@ import type { RootState } from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "../store/counterSlice";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export default function Home() {
   const count = useSelector((state: RootState) => state.counter.value);
@@ -24,6 +25,7 @@ export default function Home() {
         >
           Decrement
         </button>
+        <Footer />
       </main>
     </>
   );

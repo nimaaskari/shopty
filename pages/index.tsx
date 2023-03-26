@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "../store/counterSlice";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import axios from "axios";
 
-export default function Home() {
+export default function Home({ country }: any) {
+  console.log(country);
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
   return (
@@ -29,4 +31,20 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  let data = await axios
+    .get("https://api.ipregistry.co/?key=3w5rbtfl1e1f23g7")
+    .then((res) => {
+      return res.data.location.country;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return {
+    props: {
+      country: data,
+    },
+  };
 }

@@ -7,13 +7,12 @@ import Footer from "@/components/footer";
 import axios from "axios";
 
 export default function Home({ country }: any) {
-  console.log(country);
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
   return (
     <>
       <main className={styles.main}>
-        <Header />
+        <Header country={country} />
         <button
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
@@ -27,24 +26,35 @@ export default function Home({ country }: any) {
         >
           Decrement
         </button>
-        <Footer />
+        <Footer country={country} />
       </main>
     </>
   );
 }
 
 export async function getServerSideProps() {
-  let data = await axios
-    .get("https://api.ipregistry.co/?key=3w5rbtfl1e1f23g7")
-    .then((res) => {
-      return res.data.location.country;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  // let data = await axios
+  //   .get("https://api.ipregistry.co/?key=3w5rbtfl1e1f23g7")
+  //   .then((res) => {
+  //     return res.data.location.country;
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
   return {
     props: {
-      country: data,
+      country: {
+        name: "Iran",
+        flag: "https://cdn.britannica.com/22/1722-004-EAD033D8/Flag-Iran.jpg",
+      },
     },
   };
+  // {
+  //   props: {
+  //     country: {
+  //       name: data.name,
+  //       flag: data.flag.emojitwo,
+  //     },
+  //   },
+  // };
 }

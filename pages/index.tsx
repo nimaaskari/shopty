@@ -2,18 +2,21 @@ import styles from "@/styles/Home.module.scss";
 import type { RootState } from "../store";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "../store/counterSlice";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import axios from "axios";
 
 export default function Home({ country }: any) {
+  const { data: sessoin } = useSession();
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
   return (
     <>
       <main className={styles.main}>
         <Header country={country} />
-        <button
+        {sessoin ? "you are logged in" : "you are not logged in"}
+        {/* <button
           aria-label="Increment value"
           onClick={() => dispatch(increment())}
         >
@@ -25,7 +28,7 @@ export default function Home({ country }: any) {
           onClick={() => dispatch(decrement())}
         >
           Decrement
-        </button>
+        </button> */}
         <Footer country={country} />
       </main>
     </>

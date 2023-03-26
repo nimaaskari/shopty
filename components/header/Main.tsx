@@ -12,7 +12,9 @@ export default function Main({}) {
     <div className={styles.main}>
       <div className={styles.main__container}>
         <Link href="/">
-          <img src="../../../logo.png" alt="" />
+          <div id="logo" style={{ width: "100px" }}>
+            <img src="../../../logo.png" alt="" />
+          </div>
         </Link>
         <form>
           <input

@@ -79,7 +79,7 @@ export default function Top({}) {
               <span>Whishlist</span>
             </Link>
           </li>
-          <li
+          <div
             className={styles.li}
             onMouseOver={() => setVisible(true)}
             onMouseLeave={() => setVisible(false)}
@@ -101,7 +101,7 @@ export default function Top({}) {
               </li>
             )}
             {visible && <UserMenu />}
-          </li>
+          </div>
         </ul>
       </div>
     </div>

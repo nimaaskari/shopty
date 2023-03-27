@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
 import User from "../../../models/User";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
@@ -43,11 +42,6 @@ export default NextAuth({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER,
-    }),
   ],
   callbacks: {
     async session({ session, token }) {
@@ -65,7 +59,7 @@ export default NextAuth({
     strategy: "jwt",
   },
   // database: process.env.MONGODB_URI,
-  secret: process.env.JWT_SECRET,
+  // secret: process.env.JWT_SECRET,
 });
 
 const SignInUser = async ({ password, user }) => {

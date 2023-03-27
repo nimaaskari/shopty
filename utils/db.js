@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 const connection = {};
 
 async function connectDb() {
@@ -6,7 +6,7 @@ async function connectDb() {
     console.log("Already connected to the database.");
     return;
   }
-  if (mongoose.connections && mongoose.connections.length > 0) {
+  if (mongoose.connections.length > 0) {
     connection.isConnected = mongoose.connections[0].readyState;
     if (connection.isConnected === 1) {
       console.log("Use previous connection to the database.");
@@ -14,14 +14,10 @@ async function connectDb() {
     }
     await mongoose.disconnect();
   }
-  const db = await mongoose.connect(
-    "mongodb+srv://nima:qDE4d8F23mIEpRYA@cluster0.6wkcb2v.mongodb.net/shopty?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    }
-  );
+  const db = await mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
   console.log("New connection to the database.");
   connection.isConnected = db.connections[0].readyState;
 }

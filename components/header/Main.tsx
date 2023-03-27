@@ -22,7 +22,7 @@ export default function Main({ searchHandler }: any) {
   return (
     <div className={styles.main}>
       <div className={styles.main__container}>
-        <Link href="/">
+        <Link legacyBehavior href="/">
           <a className={styles.logo}>
             <img src="../../../logo.png" alt="" />
           </a>
@@ -38,7 +38,7 @@ export default function Main({ searchHandler }: any) {
             <RiSearch2Line />
           </button>
         </form>
-        <Link href="/cart">
+        <Link legacyBehavior href="/cart">
           <a className={styles.cart}>
             <FaOpencart />
             <span>0</span>

@@ -1,14 +1,13 @@
 import Ad from "./Ad";
-import Top from "./Top";
 import Main from "./Main";
 import styles from "./styles.module.scss";
-
-export default function Header({ country }: any) {
+import Top from "./Top";
+export default function Header({ country, searchHandler }: any) {
   return (
-    <header className="styles.header">
+    <header className={styles.header}>
       <Ad />
       <Top country={country} />
-      <Main />
+      <Main searchHandler={searchHandler} />
     </header>
   );
 }

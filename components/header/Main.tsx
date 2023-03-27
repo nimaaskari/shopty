@@ -2,21 +2,32 @@ import Link from "next/link";
 import styles from "./styles.module.scss";
 import { RiSearch2Line } from "react-icons/ri";
 import { FaOpencart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useRouter } from "next/router";
-export default function Main({}) {
+export default function Main({ searchHandler }: any) {
   const router = useRouter();
   const [query, setQuery] = useState(router.query.search || "");
-
+  const { cart } = useSelector((state: any) => ({ ...state }));
+  const handleSearch = (e: any) => {
+    e.preventDefault();
+    if (router.pathname !== "/browse") {
+      if (query.length > 1) {
+        router.push(`/browse?search=${query}`);
+      }
+    } else {
+      searchHandler(query);
+    }
+  };
   return (
     <div className={styles.main}>
       <div className={styles.main__container}>
         <Link href="/">
-          <div id="logo" style={{ width: "100px" }}>
+          <a className={styles.logo}>
             <img src="../../../logo.png" alt="" />
-          </div>
+          </a>
         </Link>
-        <form>
+        <form onSubmit={(e) => handleSearch(e)} className={styles.search}>
           <input
             type="text"
             placeholder="Search..."
@@ -28,8 +39,10 @@ export default function Main({}) {
           </button>
         </form>
         <Link href="/cart">
-          <FaOpencart />
-          <span>0</span>
+          <a className={styles.cart}>
+            <FaOpencart />
+            <span>0</span>
+          </a>
         </Link>
       </div>
     </div>

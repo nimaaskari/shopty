@@ -5,17 +5,18 @@ import { RiAccountPinCircleLine, RiArrowDropDownFill } from "react-icons/ri";
 import Link from "next/link";
 import { useState } from "react";
 import UserMenu from "./UserMenu";
+import { useSession } from "next-auth/react";
 export default function Top({ country }: any) {
+  const { data: session } = useSession();
   const [visible, setVisible] = useState(false);
-  let session = true;
   return (
     <div className={styles.top}>
       <div className={styles.top__container}>
         <div></div>
         <ul className={styles.top__list}>
           <li className={styles.li}>
-            <img src={country.flag} alt="" />
-            <span>{country.name} / USD</span>
+            <img src={country?.flag} alt="" />
+            <span>{country?.name} / USD</span>
           </li>
           <li className={styles.li}>
             <MdSecurity />
@@ -41,7 +42,8 @@ export default function Top({ country }: any) {
             {session ? (
               <li className={styles.li}>
                 <div className={styles.flex}>
-                  <span>Nima</span>
+                  <img src={session?.user?.image} alt="" />
+                  <span>{session?.user?.name}</span>
                   <RiArrowDropDownFill />
                 </div>
               </li>
@@ -54,7 +56,7 @@ export default function Top({ country }: any) {
                 </div>
               </li>
             )}
-            {visible && <UserMenu />}
+            {visible && <UserMenu session={session} />}
           </div>
         </ul>
       </div>

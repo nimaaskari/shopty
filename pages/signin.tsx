@@ -13,7 +13,6 @@ import {
   getProviders,
   getSession,
   signIn,
-  country,
 } from "next-auth/react";
 import axios from "axios";
 import DotLoaderSpinner from "../components/loaders/dotLoader";
@@ -29,7 +28,7 @@ const initialvalues = {
   error: "",
   login_error: "",
 };
-export default function signin({ providers, callbackUrl, csrfToken }) {
+export default function signin({ providers, callbackUrl, csrfToken }: any) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(initialvalues);
   const {
@@ -43,7 +42,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
     error,
     login_error,
   } = user;
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
@@ -96,7 +95,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
       }, 2000);
     } catch (error) {
       setLoading(false);
-      setUser({ ...user, success: "", error: error.response.data.message });
+      setUser({ ...user, success: "", error: "" });
     }
   };
   const signInHandler = async () => {
@@ -131,7 +130,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
               <BiLeftArrowAlt />
             </div>
             <span>
-              We'd be happy to join us ! <Link href="/">Go Store</Link>
+              We be happy to join us ! <Link href="/">Go Store</Link>
             </span>
           </div>
           <div className={styles.login__form}>
@@ -184,7 +183,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
             <div className={styles.login__socials}>
               <span className={styles.or}>Or continue with</span>
               <div className={styles.login__socials_wrap}>
-                {providers.map((provider) => {
+                {providers.map((provider: any) => {
                   if (provider.name == "Credentials") {
                     return;
                   }
@@ -269,7 +268,7 @@ export default function signin({ providers, callbackUrl, csrfToken }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   const { req, query } = context;
 
   const session = await getSession({ req });
@@ -283,7 +282,7 @@ export async function getServerSideProps(context) {
     };
   }
   const csrfToken = await getCsrfToken(context);
-  const providers = Object.values(await getProviders());
+  const providers: any = Object.values(await getProviders());
   return {
     props: {
       providers,

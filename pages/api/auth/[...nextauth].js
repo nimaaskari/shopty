@@ -58,8 +58,8 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
-  // database: process.env.MONGODB_URI,
-  // secret: process.env.JWT_SECRET,
+  database: process.env.MONGODB_URI,
+  secret: process.env.JWT_SECRET,
 });
 
 const SignInUser = async ({ password, user }) => {

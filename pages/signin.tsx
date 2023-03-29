@@ -28,7 +28,7 @@ const initialvalues = {
   error: "",
   login_error: "",
 };
-export default function signin({ providers, callbackUrl, csrfToken }: any) {
+export default function Signin({ providers, callbackUrl, csrfToken }: any) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(initialvalues);
   const {
@@ -282,12 +282,12 @@ export async function getServerSideProps(context: any) {
     };
   }
   const csrfToken = await getCsrfToken(context);
-  const providers: any = Object.values(await getProviders());
+  const providers: any[] = Object.values(getProviders());
   return {
     props: {
       providers,
       csrfToken,
       callbackUrl,
-    },
+    } as any,
   };
 }
